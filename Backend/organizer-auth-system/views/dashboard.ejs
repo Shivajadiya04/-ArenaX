@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Organizer Dashboard</title>
+  <link rel="stylesheet" href="/Css/dashboard.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
+</head>
+<body>
+  <div class="dashboard-container">
+    <nav class="navbar">
+      <div class="logo">CompeteCampus</div>
+      <div class="welcome">Welcome, <%= organizer.name %> 👋</div>
+      <a href="/logout" class="btn-outline logout-btn">Logout</a>
+    </nav>
+
+    <header class="header">
+      <h1 class="title">Your Organizer Dashboard</h1>
+      <p class="subtitle">Track and manage your contests efficiently.</p>
+      <form action="/design-contest" method="GET">
+        <button type="submit"><a href="/create-contest" class="btn-solid create-btn">+ Design New Contest</a></button>
+      </form>
+    </header>
+
+    <section class="stats">
+      <div class="card">
+        <h3>Total Contests</h3>
+        <p><%= totalContests %></p>
+      </div>
+      <div class="card">
+        <h3>Categories</h3>
+        <p><%= Object.keys(stats.categories).join(', ') %></p>
+      </div>
+    </section>
+
+    <section class="graph-section">
+      <h2>Contests by Category</h2>
+      <canvas id="categoryChart"
+        data-labels='<%= JSON.stringify(Object.keys(stats.categories)) %>'
+        data-values='<%= JSON.stringify(Object.values(stats.categories)) %>'>
+      </canvas>
+    </section>
+
+    <section class="graph-section">
+      <h2>Contests Created Over Time</h2>
+      <canvas id="dateChart"
+        data-labels='<%= JSON.stringify(Object.keys(stats.dateWise)) %>'
+        data-values='<%= JSON.stringify(Object.values(stats.dateWise)) %>'>
+      </canvas>
+    </section>
+
+    <footer>
+      <p>© 2025 CompeteCampus. All rights reserved.</p>
+    </footer>
+
+    <script src="/Js/dashboard.js"></script>
+  </div>
+</body>
+</html>
