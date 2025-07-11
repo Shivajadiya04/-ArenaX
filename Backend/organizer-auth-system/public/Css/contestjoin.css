@@ -1,0 +1,16 @@
+button {
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button[type="submit"]:first-of-type {
+  background: #4CAF50;
+  color: white;
+}
+
+button[type="submit"]:last-of-type {
+  background: #1E90FF;
+  color: white;
+}

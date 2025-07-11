@@ -1,37 +1,55 @@
-<!DOCTYPE html>
+
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Contest Platform</title>
-  <link rel="stylesheet" href="/Css/home.css">
+  <link rel="stylesheet" href="/Css/style.css" />
   <!-- GSAP CDN -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
 </head>
 <body>
   <div class="container">
-    <nav class="navbar">
-      <div class="logo">CompeteCampus</div>
-      <div class="nav-buttons">
-        <a href="#" class="btn-outline js-home" id="navc">Home</a>
-        <a href="#features" class="btn-outline js-featur" id="navc">Features</a>
-        <a href="#about" class="btn-outline js-About" id="navc">About Us</a>
-        
-      
-    </nav>
+ <nav class="navbar">
+  <div class="logo">CompeteCampus</div>
+  <div class="hamburger" id="hamburger">&#9776;</div> <!-- Hamburger icon -->
+
+  <div class="nav-buttons">
+    <a href="#" class="btn-outline js-home" id="navc">Home</a>
+    <a href="#features" class="btn-outline js-featur" id="navc">Features</a>
+    <a href="#about" class="btn-outline js-About" id="navc">About Us</a>
+    <a href="/joinDashboard" class="btn-outline js-About" id="navc">Join dashboard</a>
+    <a href="/index" class="btn-outline js-About" id="navc">Logout</a>
+  </div>
+</nav>
+
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+    
+  <div class="close-btn" id="closeBtn">&times;</div>
+  <a href="#">Home</a>
+  <a href="#features">Features</a>
+  <a href="#about">About Us</a>
+  <a href="/joinDashboard">Join dashboard</a>
+  <a href="/index">Logout</a>
+</div>
+
 
     <header class="hero">
       <h1 class="hero-title">Create. Host. Analyze Contests.</h1>
       <p class="hero-subtitle">All-in-one platform for organizing coding, aptitude, logical reasoning, and web dev competitions.</p>
       <div class="hero-buttons">
-        <a href="/login" class="btn-solid js-create-hero">Create Contest</a>
-        <a href="/login" class="btn-outline js-join-hero">Join Contest</a>
+        
+       <form action="/join-link" method="POST">
+  <input type="text" name="contestLink" placeholder="Paste contest link here" required>
+  <button id ="navct"type="submit">Join</button>
+</form>
       </div>
     </header>
 
     <div class="hero-image">
       <!-- Replace with your own image -->
-      <img src="/Assests1/Group 118.png" alt="Contest Illustration" />
+      <img src="/public/Assests1/Group 118.png" alt="Contest Illustration" />
     </div>
   </div>
   

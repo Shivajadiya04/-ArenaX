@@ -82,3 +82,26 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   });
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+  const sidebar = document.getElementById('sidebar');
+  const hamburger = document.getElementById('hamburger');
+  const closeBtn = document.getElementById('closeBtn');
+
+  if (hamburger && sidebar) {
+    hamburger.addEventListener('click', () => {
+      
+      sidebar.classList.add('active');
+    });
+  }
+
+  if (closeBtn && sidebar) {
+    closeBtn.addEventListener('click', () => {
+   
+      sidebar.classList.remove('active');
+    });
+  } else {
+    console.warn('closeBtn or sidebar not found in DOM');
+  }
+});
+

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Joined Contests</title>
+  <link rel="stylesheet" href="/css/dashboard.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>👨‍🎓 Your Joined Contests</h1>
+
+   <h2>🎯 Your Participated Contests</h2>
+<% if (contests.length === 0) { %>
+  <p>You have not attended any contest yet.</p>
+<% } else { %>
+  <div class="grid">
+    <% contests.forEach(c => {
+      const p = c.participants.find(p => p.user.toString() === user._id.toString());
+    %>
+      <% if (p) { %>
+        <div class="card">
+          <h3><%= c.title %></h3>
+          <p><strong>Topic:</strong> <%= c.category %></p>
+          <p><strong>Score:</strong> <%= p.score %></p>
+          <p><strong>Submitted:</strong> <%= new Date(p.submittedAt).toLocaleString() %></p>
+        </div>
+      <% } %>
+    <% }); %>
+  </div>
+<% } %>
+
+    <a href="/user/home">🔙 Go to User Home</a>
+  </div>
+</body>
+</html

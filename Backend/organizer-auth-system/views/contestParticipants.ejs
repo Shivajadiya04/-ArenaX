@@ -1,0 +1,15 @@
+<h1>👨‍🏫 Participants for <%= contest.title %></h1>
+<table>
+  <tr>
+    <th>Rank</th>
+    <th>Name</th>
+    <th>Score</th>
+  </tr>
+  <% participants.forEach((p, index) => { %>
+    <tr>
+      <td><%= index + 1 %></td>
+      <td><%= p.user.name %></td>
+      <td><%= p.score %></td>
+    </tr>
+  <% }) %>
+</table>

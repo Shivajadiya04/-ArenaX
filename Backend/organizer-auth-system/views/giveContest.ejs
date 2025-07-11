@@ -1,0 +1,254 @@
+<!--<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title><%= contest.title %></title>
+  <link rel="stylesheet" href="/css/contestAttempt.css" />
+  <style>
+    #timer {
+      font-weight: bold;
+      font-size: 18px;
+      margin-bottom: 20px;
+      color: #ff4444;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1><%= contest.title %></h1>
+    <p><%= contest.description %></p>
+    <h3>Category: <%= contest.category %></h3>
+    <p>Total Time: <%= contest.timeLimit %> minutes</p>
+
+     Countdown Timer 
+    <div id="timer">Loading timer...</div>
+
+     Contest Form 
+    <form id="contest-form">
+      <% contest.questions.forEach(function(q, idx) { %>
+        <div class="question-block">
+          <p><%= idx + 1 %>. <%= q.question %></p>
+
+          <label>
+            <input type="radio" name="q<%= idx %>" value="<%= q.option1 %>" />
+            <%= q.option1 %>
+          </label><br/>
+
+          <label>
+            <input type="radio" name="q<%= idx %>" value="<%= q.option2 %>" />
+            <%= q.option2 %>
+          </label><br/>
+
+          <label>
+            <input type="radio" name="q<%= idx %>" value="<%= q.option3 %>" />
+            <%= q.option3 %>
+          </label><br/>
+
+          <label>
+            <input type="radio" name="q<%= idx %>" value="<%= q.option4 %>" />
+            <%= q.option4 %>
+          </label><br/>
+        </div>
+      <% }); %>
+
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  Countdown Script 
+  <script>
+    const totalMinutes = <%= JSON.stringify(contest.timeLimit) %>;
+
+    let timeLeft = totalMinutes * 60;
+
+    const timerEl = document.getElementById("timer");
+    const form = document.getElementById("contest-form");
+
+    const timer = setInterval(() => {
+      const minutes = Math.floor(timeLeft / 60);
+      const seconds = timeLeft % 60;
+      timerEl.textContent = `⏰ Time Left: ${minutes}m ${seconds < 10 ? '0' + seconds : seconds}s`;
+
+      if (timeLeft <= 0) {
+        clearInterval(timer);
+        alert("⏳ Time's up! Submitting your contest.");
+        form.submit();
+      }
+
+      timeLeft--;
+    }, 1000);
+  </script>
+</body>
+</html>-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title><%= contest.title %></title>
+  <link rel="stylesheet" href="/css/contestAttempt.css" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #0c0c1c;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #f1f1f1;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 30px auto;
+      padding: 30px;
+      background: rgba(20, 25, 50, 0.85);
+      border-radius: 12px;
+      box-shadow: 0 0 25px rgba(0, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    h1, h3 {
+      color: #3ecdf5;
+      text-align: center;
+    }
+
+    p {
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .question-block {
+      margin-top: 25px;
+      padding: 15px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 8px;
+    }
+
+    .question-block p {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    label {
+      display: block;
+      margin: 8px 0;
+      cursor: pointer;
+      color: #ddd;
+      transition: 0.2s ease;
+    }
+
+    label:hover {
+      color: #ffffff;
+      transform: translateX(5px);
+    }
+
+    input[type="radio"] {
+      margin-right: 10px;
+      transform: scale(1.2);
+    }
+
+    button[type="submit"] {
+      margin-top: 25px;
+      padding: 12px 25px;
+      background: #3ecdf5;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      color: #0c0c1c;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #1da8c9;
+    }
+
+    #timer {
+      font-weight: bold;
+      font-size: 18px;
+      margin-bottom: 20px;
+      color: #ff6961;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 12px;
+      border-radius: 8px;
+    }
+
+    @media screen and (max-width: 600px) {
+      .container {
+        margin: 10px;
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1><%= contest.title %></h1>
+    <p><%= contest.description %></p>
+    <h3>Category: <%= contest.category %></h3>
+    <p>Total Time: <%= contest.timeLimit %> minutes</p>
+
+    <!-- Countdown Timer -->
+    <div id="timer">Loading timer...</div>
+
+    <!-- Contest Form -->
+    <form id="contest-form" action="/contest/submit"method="POST">
+  <input type="hidden" name="contestId" value="<%= contest._id %>" />
+
+      <% contest.questions.forEach(function(q, idx) { %>
+        <div class="question-block">
+          <p><%= idx + 1 %>. <%= q.question %></p>
+
+          <label>
+            <input type="radio" name="q<%= idx %>" value="<%= q.option1 %>" />
+            <%= q.option1 %>
+          </label> <br/>
+
+          <label>
+            <input type="radio" name="q<%= idx %>" value="<%= q.option2 %>" />
+            <%= q.option2 %>
+          </label> <br/>
+
+          <label>
+            <input type="radio" name="q<%= idx %>" value="<%= q.option3 %>" />
+            <%= q.option3 %>
+          </label>
+
+          <label>
+            <input type="radio" name="q<%= idx %>" value="<%= q.option4 %>" />
+            <%= q.option4 %>
+          </label>
+        </div>
+      <% }); %>
+
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <!-- Countdown Script -->
+  <script>
+    const totalMinutes = <%= JSON.stringify(contest.timeLimit) %>;
+    let timeLeft = totalMinutes * 60;
+
+    const timerEl = document.getElementById("timer");
+    const form = document.getElementById("contest-form");
+
+    const timer = setInterval(() => {
+      const minutes = Math.floor(timeLeft / 60);
+      const seconds = timeLeft % 60;
+      timerEl.textContent = `⏰ Time Left: ${minutes}m ${seconds < 10 ? '0' + seconds : seconds}s`;
+
+      if (timeLeft <= 0) {
+        clearInterval(timer);
+        alert("⏳ Time's up! Submitting your contest.");
+        form.submit();
+      }
+
+      timeLeft--;
+    }, 1000);
+  </script>
+</body>
+</html>

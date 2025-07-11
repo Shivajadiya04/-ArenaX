@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title><%= contest.title %> - Join Contest</title>
+  <link rel="stylesheet" href="/Css/contestjoin.css" />
+</head>
+<body>
+  <div class="join-container">
+    <h2><%= contest.title %></h2>
+    <p><%= contest.description %></p>
+
+    <!-- Join Contest Form -->
+    <form action="/contest/<%= contest._id %>/join" method="POST">
+      <input type="text" name="passcode" placeholder="Enter Contest Passcode" required />
+      <button type="submit">Join Contest</button>
+    </form>
+
+    <!-- Save for Later Form -->
+    <form action="/contest/save" method="POST" style="margin-top: 20px;">
+      <input type="hidden" name="contestId" value="<%= contest._id %>">
+      <button type="submit">💾 Save for Later</button>
+    </form>
+  </div>
+</body>
+</html>
+

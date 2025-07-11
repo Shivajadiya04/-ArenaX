@@ -2,60 +2,164 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Organizer Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard</title>
   <link rel="stylesheet" href="/Css/dashboard.css" />
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
+  <style>
+    body {
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: #fff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 2rem;
+    }
+  .dash{
+    width: 100%;
+    display: flex;
+    gap: 1vh;
+  }
+  
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+
+    .contest-section {
+      margin-top: 30px;
+      width: 50%;
+    }
+
+    .contest-card {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      border: 1px solid #3a3a3a;
+    }
+
+    a {
+      color: #87cefa;
+    }
+
+    button {
+      background: #1e90ff;
+      color: white;
+      padding: 6px 12px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .btn-home {
+      background-color: #444;
+      text-decoration: none;
+      padding: 10px 16px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      display: inline-block;
+      color: white;
+    }
+  </style>
 </head>
 <body>
-  <div class="dashboard-container">
-    <nav class="navbar">
-      <div class="logo">CompeteCampus</div>
-      <div class="welcome">Welcome, <%= organizer.name %> 👋</div>
-      <a href="/logout" class="btn-outline logout-btn">Logout</a>
-    </nav>
 
-    <header class="header">
-      <h1 class="title">Your Organizer Dashboard</h1>
-      <p class="subtitle">Track and manage your contests efficiently.</p>
-      <form action="/design-contest" method="GET">
-        <button type="submit"><a href="/create-contest" class="btn-solid create-btn">+ Design New Contest</a></button>
-      </form>
-    </header>
-
-    <section class="stats">
-      <div class="card">
-        <h3>Total Contests</h3>
-        <p><%= totalContests %></p>
-      </div>
-      <div class="card">
-        <h3>Categories</h3>
-        <p><%= Object.keys(stats.categories).join(', ') %></p>
-      </div>
-    </section>
-
-    <section class="graph-section">
-      <h2>Contests by Category</h2>
-      <canvas id="categoryChart"
-        data-labels='<%= JSON.stringify(Object.keys(stats.categories)) %>'
-        data-values='<%= JSON.stringify(Object.values(stats.categories)) %>'>
-      </canvas>
-    </section>
-
-    <section class="graph-section">
-      <h2>Contests Created Over Time</h2>
-      <canvas id="dateChart"
-        data-labels='<%= JSON.stringify(Object.keys(stats.dateWise)) %>'
-        data-values='<%= JSON.stringify(Object.values(stats.dateWise)) %>'>
-      </canvas>
-    </section>
-
-    <footer>
-      <p>© 2025 CompeteCampus. All rights reserved.</p>
-    </footer>
-
-    <script src="/Js/dashboard.js"></script>
+  <div class="header">
+    <h1>Welcome, <%= organizer.name %> 👋</h1>
+    <a href="/organizer/home" class="btn-home">🏠 Back to Home</a>
   </div>
+
+  <% if (successMessage) { %>
+    <div style="color: lightgreen; font-size: 18px;"><%= successMessage %></div>
+  <% } %>
+<div class="dash">
+
+
+  <div class="contest-section">
+    <h2>📌 Your Created Contests</h2>
+
+    <% if (createdContests.length === 0) { %>
+      <p>You haven't created any contests yet.</p>
+    <% } else { %>
+      <% createdContests.forEach(contest => { %>
+        <div class="contest-card">
+          <h3><%= contest.title %></h3>
+          <p><strong>Start Time:</strong> <%= new Date(contest.startTime).toLocaleString() %></p>
+<p><strong>End Time:</strong> <%= new Date(contest.endTime).toLocaleString() %></p>
+
+          <p><strong>Link:</strong> <a href="/contest/<%= contest._id %>">/contest/<%= contest._id %></a></p>
+          <p><strong>Passcode:</strong> <%= contest.passcode %></p>
+          <button onclick="copyLink('<%= contest._id %>')">🔗 Copy Share Link</button>
+        </div>
+      <% }) %>
+    <% } %>
+  </div>
+
+  <!--New leadboard-->
+<div class="contest-max">
+  <% createdContests.forEach(c => { %>
+  <div class="contest-box">
+    <h3><%= c.title %></h3>
+    <p><strong>Category:</strong> <%= c.category %></p>
+
+    <% if (c.participants.length) { %>
+      <div class="leaderboard">
+        <h4>📊 Submissions</h4>
+        <ul>
+          <% c.participants.forEach(p => { %>
+            <li>
+              <strong><%= p.name %></strong> — Score: <%= p.score %> | <%= new Date(p.submittedAt).toLocaleString() %>
+            </li>
+          <% }) %>
+        </ul>
+      </div>
+    <% } else { %>
+      <p>No submissions yet.</p>
+    <% } %>
+  </div>
+<% }) %>
+</div>
+
+</div>
+<style>
+
+  .contest-max{
+    width: 50%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 13vh;
+  }
+.contest-box {
+  border: 1px solid #ccc;
+  background-color: #1a1a1a;
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 10px;
+  color: white;
+  
+
+}
+.leaderboard {
+  margin-top: 10px;
+}
+.leaderboard ul {
+  list-style: none;
+  padding-left: 0;
+}
+.leaderboard li {
+  padding: 5px;
+  border-bottom: 1px solid #555;
+}
+</style>
+
+  <script>
+    function copyLink(id) {
+      const link = `${window.location.origin}/contest/${id}`;
+      navigator.clipboard.writeText(link);
+      alert("✅ Link copied to clipboard!");
+    }
+  </script>
+
 </body>
 </html>

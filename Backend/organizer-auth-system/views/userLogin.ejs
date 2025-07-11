@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User Login</title>
+  <style>
+    body { background: #111; color: #fff; font-family: sans-serif; padding: 2rem; }
+    input, button { padding: 0.6rem; margin: 0.4rem 0; width: 100%; }
+    .form-box { max-width: 400px; margin: auto; background: #222; padding: 2rem; border-radius: 8px; }
+  </style>
+</head>
+<body>
+  <div class="form-box">
+    <h2>🔑 User Login</h2>
+    <form action="/user/userLogin" method="POST">
+      <input type="email" name="email" placeholder="Email" required />
+      <input type="password" name="password" placeholder="Password" required />
+      <button type="submit">Login</button>
+    </form>
+    <p>Don't have an account? <a href="/user/userSignup" style="color: #87cefa;">Signup</a></p>
+  </div>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Create Contest</title>
+  
+  <!-- Fonts & Styles -->
+  <link rel="stylesheet" href="/css/contestForm.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+  
+  <!-- GSAP for Animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+<body>
+  <div class="form-container">
+    <h2 id="form-title">Create New Contest</h2>
+
+    <form id="contest-form" action="/contest-create" method="POST">
+      <label>Start Date & Time</label>
+      <!--<input type="datetime-local" name="startTime" required />-->
+      <input type="datetime-local" name="startTime" value="<%= new Date(Date.now() + 5 * 60 * 1000).toISOString().slice(0,16) %>" required>
+
+      <label>End Date & Time</label>
+      <!--<input type="datetime-local" name="endTime" required />-->
+      <input type="datetime-local" name="endTime" value="<%= new Date(Date.now() + 20 * 60 * 1000).toISOString().slice(0,16) %>" required>
+
+
+      <input type="text" name="title" placeholder="Contest Title" required />
+      <textarea name="description" placeholder="Contest Description" required></textarea>
+      <input type="text" name="category" placeholder="Category (e.g. Coding, Aptitude)" required />
+      <input type="number" name="timeLimit" placeholder="Time Limit (in minutes)" required />
+
+      <h3>Questions</h3>
+      <div id="question-container">
+        <!-- JS will dynamically add question blocks here -->
+      </div>
+
+      <button type="button" onclick="addQuestion()">➕ Add Question</button>
+      <button type="submit">✅ Create Contest</button>
+    </form>
+  </div>
+
+  <script src="/js/contestForm.js"></script>
+</body>
+</html>
