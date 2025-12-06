@@ -374,7 +374,7 @@ app.post("/organizer/login", async (req, res) => {
 // ========== Organizer Home & Flow ==========
 app.get("/organizer/home", (req, res) => {
   if (!req.session.organizer) return res.redirect("/organizer/login");
-  res.render("organizerHome", { organizer: req.session.organizer });
+  res.render("organizerhome", { organizer: req.session.organizer });
 });
 app.get("/contest-create", (req, res) => {
   if (!req.session.organizer) return res.redirect("/organizer/login");
