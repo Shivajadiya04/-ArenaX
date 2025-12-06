@@ -10,7 +10,7 @@ function addQuestion() {
       <input type="text" name="questions[${questionIndex}][option2]" placeholder="Option 2" required />
       <input type="text" name="questions[${questionIndex}][option3]" placeholder="Option 3" required />
       <input type="text" name="questions[${questionIndex}][option4]" placeholder="Option 4" required />
-      <input type="text" name="questions[${questionIndex}][correctAnswer]" placeholder="Correct Answer" required />
+      <input type="text" name="questions[${questionIndex}][answer]" placeholder="Correct Answer" required />
       <input type="text" name="questions[${questionIndex}][hint]" placeholder="Hint (Optional)" />
     </div>
   `;

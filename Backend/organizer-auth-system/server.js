@@ -327,6 +327,9 @@ const SavedContest = require("./models/SavedContest");
 
 dotenv.config();
 const app = express();
+const path = require("path");
+app.set("views", path.join(__dirname, "views"));
+
 
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
